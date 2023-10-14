@@ -25,12 +25,12 @@ typedef enum {
   DIFF_CH5_CH4 = 0x06, ///< Differential CH5-CH4
   DIFF_CH7_CH6 = 0x07, ///< Differential CH7-CH6
   SINGLE_CH0 = 0x08, ///< Single-Ended CH0
-  SINGLE_CH1 = 0x0C, ///< Single-Ended CH1
   SINGLE_CH2 = 0x09, ///< Single-Ended CH2
-  SINGLE_CH3 = 0x0D, ///< Single-Ended CH3
   SINGLE_CH4 = 0x0A, ///< Single-Ended CH4
-  SINGLE_CH5 = 0x0E, ///< Single-Ended CH5
   SINGLE_CH6 = 0x0B, ///< Single-Ended CH6
+  SINGLE_CH1 = 0x0C, ///< Single-Ended CH1
+  SINGLE_CH3 = 0x0D, ///< Single-Ended CH3
+  SINGLE_CH5 = 0x0E, ///< Single-Ended CH5
   SINGLE_CH7 = 0x0F  ///< Single-Ended CH7
 } ad7830ChannelSelectionControl;
 
@@ -38,7 +38,7 @@ class Adafruit_AD7830 {
 public:
   Adafruit_AD7830();
   bool begin(uint8_t i2c_addr = AD7830_I2C_ADDR, TwoWire *theWire = &Wire);
-  uint8_t readADCsingle(uint8_t ch, ad7830PowerDownSelection pd = INTERNAL_REF_ON_ADC_ON);
+  int16_t readADCsingle(uint8_t ch, ad7830PowerDownSelection pd = INTERNAL_REF_ON_ADC_ON);
   uint8_t readADCdifferential(uint8_t ch, ad7830PowerDownSelection pd = INTERNAL_REF_ON_ADC_ON);
 
 private:

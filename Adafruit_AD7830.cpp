@@ -64,7 +64,7 @@ bool Adafruit_AD7830::begin(uint8_t i2c_addr, TwoWire *theWire) {
  * @param pd Power-down selection mode.
  * @return ADC value or 0 if read failed.
  */
-uint8_t Adafruit_AD7830::readADCsingle(uint8_t ch, ad7830PowerDownSelection pd) {
+int16_t Adafruit_AD7830::readADCsingle(uint8_t ch, ad7830PowerDownSelection pd) {
   if (ch > 7) {
     return 0; // Invalid channel
   }
@@ -73,10 +73,8 @@ uint8_t Adafruit_AD7830::readADCsingle(uint8_t ch, ad7830PowerDownSelection pd) 
   
   if (ch % 2 == 0) {
     commandByte |= (SINGLE_CH0 + (ch / 2));
-    Serial.println(commandByte, HEX);
   } else {
     commandByte |= (SINGLE_CH1 + ((ch - 1) / 2));
-    Serial.println(commandByte, HEX);
   }
   commandByte <<= 4;
 
@@ -84,7 +82,7 @@ uint8_t Adafruit_AD7830::readADCsingle(uint8_t ch, ad7830PowerDownSelection pd) 
 
   uint8_t adcValue;
   if (!i2c_dev->write_then_read(&commandByte, 1, &adcValue, 1)) {
-    return 0; // Write-then-read failed
+    return -1; // Write-then-read failed
   }
 
   return adcValue;
@@ -109,7 +107,11 @@ uint8_t Adafruit_AD7830::readADCdifferential(uint8_t ch, ad7830PowerDownSelectio
   uint8_t commandByte = 0;
 
   // Set channel bits for differential mode
-  commandByte |= (DIFF_CH0_CH1 + (ch * 2));
+  if (ch % 2 == 0) {
+    commandByte |= (DIFF_CH0_CH1 + (ch / 2));
+  } else {
+    commandByte |= (DIFF_CH0_CH1 + ((ch - 1) / 2));
+  }
   commandByte <<= 4;
 
   commandByte |= (pd << 2); // Set power-down bits
