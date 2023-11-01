@@ -37,6 +37,9 @@ typedef enum {
   SINGLE_CH7 = 0x0F    ///< Single-Ended CH7
 } ad7830ChannelSelectionControl;
 
+/**
+ * Object for interacting with ADS7830 I2C ADC chip
+ */
 class Adafruit_ADS7830 {
 public:
   Adafruit_ADS7830();
