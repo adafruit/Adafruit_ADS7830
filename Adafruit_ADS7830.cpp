@@ -29,19 +29,16 @@
 
 #include "Adafruit_ADS7830.h"
 
-
 /**
  * @brief Construct a new Adafruit_ADS7830 object.
- * 
+ *
  * Initializes the i2c_dev member variable to nullptr.
  */
-Adafruit_ADS7830::Adafruit_ADS7830() {
-  i2c_dev = nullptr;
-}
+Adafruit_ADS7830::Adafruit_ADS7830() { i2c_dev = nullptr; }
 
 /**
  * @brief Initialize the ADS7830 chip.
- * 
+ *
  * @param i2c_addr I2C address of the ADS7830 chip.
  * @param theWire Pointer to the TwoWire object.
  * @return true if initialization is successful, false otherwise.
@@ -56,21 +53,21 @@ bool Adafruit_ADS7830::begin(uint8_t i2c_addr, TwoWire *theWire) {
   return i2c_dev->begin();
 }
 
-
 /**
  * @brief Read ADC value in single-ended mode.
- * 
+ *
  * @param ch Channel to read from (0-7).
  * @param pd Power-down selection mode.
  * @return ADC value or 0 if read failed.
  */
-int16_t Adafruit_ADS7830::readADCsingle(uint8_t ch, ad7830PowerDownSelection pd) {
+int16_t Adafruit_ADS7830::readADCsingle(uint8_t ch,
+                                        ad7830PowerDownSelection pd) {
   if (ch > 7) {
     return 0; // Invalid channel
   }
 
   uint8_t commandByte = 0;
-  
+
   if (ch % 2 == 0) {
     commandByte |= (SINGLE_CH0 + (ch / 2));
   } else {
@@ -88,18 +85,18 @@ int16_t Adafruit_ADS7830::readADCsingle(uint8_t ch, ad7830PowerDownSelection pd)
   return adcValue;
 }
 
-
 /**
  * @brief Read ADC value in differential mode.
- * 
+ *
  * @param ch Positive channel for differential reading (0-7).
  * @param pd Power-down selection mode.
  * @return ADC value or 0 if read failed.
- * 
- * The negative channel for differential reading is determined by the chip and is fixed.
- * For example, if ch is 0, the negative channel will be 1.
+ *
+ * The negative channel for differential reading is determined by the chip and
+ * is fixed. For example, if ch is 0, the negative channel will be 1.
  */
-uint8_t Adafruit_ADS7830::readADCdifferential(uint8_t ch, ad7830PowerDownSelection pd) {
+uint8_t Adafruit_ADS7830::readADCdifferential(uint8_t ch,
+                                              ad7830PowerDownSelection pd) {
   if (ch > 7) {
     return 0; // Invalid channel
   }
