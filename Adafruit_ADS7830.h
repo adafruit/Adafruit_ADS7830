@@ -1,10 +1,10 @@
-#ifndef ADAFRUIT_AD7830_H
-#define ADAFRUIT_AD7830_H
+#ifndef ADAFRUIT_ADS7830_H
+#define ADAFRUIT_ADS7830_H
 
 #include <Adafruit_I2CDevice.h>
 
 // Default I2C Address
-#define AD7830_I2C_ADDR 0x48 ///< Default I2C Address
+#define ADS7830_I2C_ADDR 0x48 ///< Default I2C Address
 
 // Power-Down Selection Enum
 typedef enum {
@@ -34,10 +34,10 @@ typedef enum {
   SINGLE_CH7 = 0x0F  ///< Single-Ended CH7
 } ad7830ChannelSelectionControl;
 
-class Adafruit_AD7830 {
+class Adafruit_ADS7830 {
 public:
-  Adafruit_AD7830();
-  bool begin(uint8_t i2c_addr = AD7830_I2C_ADDR, TwoWire *theWire = &Wire);
+  Adafruit_ADS7830();
+  bool begin(uint8_t i2c_addr = ADS7830_I2C_ADDR, TwoWire *theWire = &Wire);
   int16_t readADCsingle(uint8_t ch, ad7830PowerDownSelection pd = INTERNAL_REF_ON_ADC_ON);
   uint8_t readADCdifferential(uint8_t ch, ad7830PowerDownSelection pd = INTERNAL_REF_ON_ADC_ON);
 
@@ -45,4 +45,4 @@ private:
   Adafruit_I2CDevice *i2c_dev; // I2C device
 };
 
-#endif // ADAFRUIT_AD7830_H
+#endif // ADAFRUIT_ADS7830_H

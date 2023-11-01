@@ -1,13 +1,13 @@
 /*!
- * @file Adafruit_AD7830.cpp
+ * @file Adafruit_ADS7830.cpp
  *
- * @mainpage Adafruit AD7830 ADC library
+ * @mainpage Adafruit ADS7830 ADC library
  *
  * @section intro_sec Introduction
  *
- * This is the documentation for Adafruit's AD7830 driver for the
+ * This is the documentation for Adafruit's ADS7830 driver for the
  * Arduino platform. It is designed specifically to work with the
- * Adafruit AD7830 breakout: https://www.adafruit.com/product/xxxx
+ * Adafruit ADS7830 breakout: https://www.adafruit.com/product/xxxx
  *
  * These sensors use I2C to communicate, 2 pins (SCL+SDA) are required
  * to interface with the board.
@@ -27,26 +27,26 @@
  *
  */
 
-#include "Adafruit_AD7830.h"
+#include "Adafruit_ADS7830.h"
 
 
 /**
- * @brief Construct a new Adafruit_AD7830 object.
+ * @brief Construct a new Adafruit_ADS7830 object.
  * 
  * Initializes the i2c_dev member variable to nullptr.
  */
-Adafruit_AD7830::Adafruit_AD7830() {
+Adafruit_ADS7830::Adafruit_ADS7830() {
   i2c_dev = nullptr;
 }
 
 /**
- * @brief Initialize the AD7830 chip.
+ * @brief Initialize the ADS7830 chip.
  * 
- * @param i2c_addr I2C address of the AD7830 chip.
+ * @param i2c_addr I2C address of the ADS7830 chip.
  * @param theWire Pointer to the TwoWire object.
  * @return true if initialization is successful, false otherwise.
  */
-bool Adafruit_AD7830::begin(uint8_t i2c_addr, TwoWire *theWire) {
+bool Adafruit_ADS7830::begin(uint8_t i2c_addr, TwoWire *theWire) {
   if (i2c_dev) {
     delete i2c_dev;
   }
@@ -64,7 +64,7 @@ bool Adafruit_AD7830::begin(uint8_t i2c_addr, TwoWire *theWire) {
  * @param pd Power-down selection mode.
  * @return ADC value or 0 if read failed.
  */
-int16_t Adafruit_AD7830::readADCsingle(uint8_t ch, ad7830PowerDownSelection pd) {
+int16_t Adafruit_ADS7830::readADCsingle(uint8_t ch, ad7830PowerDownSelection pd) {
   if (ch > 7) {
     return 0; // Invalid channel
   }
@@ -99,7 +99,7 @@ int16_t Adafruit_AD7830::readADCsingle(uint8_t ch, ad7830PowerDownSelection pd) 
  * The negative channel for differential reading is determined by the chip and is fixed.
  * For example, if ch is 0, the negative channel will be 1.
  */
-uint8_t Adafruit_AD7830::readADCdifferential(uint8_t ch, ad7830PowerDownSelection pd) {
+uint8_t Adafruit_ADS7830::readADCdifferential(uint8_t ch, ad7830PowerDownSelection pd) {
   if (ch > 7) {
     return 0; // Invalid channel
   }
